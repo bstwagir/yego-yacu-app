@@ -1,21 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import logos from '../Frame 22605.svg'
+// import logos from '../Frame 22605.svg'
 import graph from '../assets/Group 2.png'
 import graph2 from '../assets/Group 1.png'
-import mainImage from '../Rectangle 22487.png'
-import video from '../assets/Group 4.png'
+import mainImage from '../assets/Yego-Yacu team pic.jpeg'
+import video from '../assets/image.png'
 import line from '../Vector 91.svg'
+import pdfFile from '../assets/ASRHR10-14.pdf'
+import pdfFile2 from '../assets/ASRHR15-24.pdf'
+import miniYouth from '../assets/miniyouth2 1.png'
+import enabel from '../assets/enabel 1.png'
+import sfh from '../assets/sfhlogo1 1.png'
 import '../css/hompePage copy.css';
 import { Button } from 'antd';
 import { SearchOutlined, GlobalOutlined, ArrowRightOutlined, RightOutlined, MenuOutlined, CloseOutlined } from '@ant-design/icons';
+import '@react-pdf-viewer/core/lib/styles/index.css';
+import Modal from 'react-modal';
+import { pdfjs, Document, Page } from 'react-pdf';
+
+pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 
 function App() {
   const [isDropdown, setisDropdown] = useState(false);
+  const [showMore, setshowMore] = useState(true);
+  const [ReadTwo, setReadTwo] = useState(false);
+  const [isPdfPreviewVisible, setIsPdfPreviewVisible] = useState(false);
   const [isList, setisList] = useState(false);
+  const [numPages, setNumPages] = useState();
+  const navigate = useNavigate();
+
+  function onDocumentLoadSuccess({ numPages }) {
+    setNumPages(numPages);
+  }
+
   useEffect(() => {
-    // Function to handle screen size changes
     const handleResize = () => {
       setisDropdown(window.innerWidth > 900);
       setisList(window.innerWidth > 900)
@@ -27,35 +46,53 @@ function App() {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
-  const navigate = useNavigate();
 
+  const handlePdfPreview = () => {
+    setIsPdfPreviewVisible(true);
+    setReadTwo(true)
+  };
+  const handlePdfPreview2 = () => {
+    setIsPdfPreviewVisible(true);
+    setReadTwo(false)
+  };
+  const closeModal = () => {
+    setIsPdfPreviewVisible(false);
+  };
+  const handlePdfDownload = (props) => {
+    window.open((props), '_blank');
+  };
   const handleClick = () => {
     navigate('/home');
   };
-  console.log(isDropdown, isList);
 
   return (
     <div className='container'>
+      <div className='upper'>
       <div className='title'>
-       <img src={logos} className="logos" alt="logo" />
-       {isDropdown && (
-       <div className='search'>
-        <CloseOutlined tlined className='menu' style={{ float: "left", marginLeft: 10}} onClick={() => setisDropdown(!isDropdown)}/>
-       <Button type="none" className="read" style={{ marginRight: 20 }}><SearchOutlined />Search</Button>
-       {isList? <Button type="primary" className="read" shape="round" style={{ marginRight: 20, backgroundColor: 'darkblue' }} onClick={handleClick}>Login</Button> : 
-       <Button type="none" className="login" shape="round" style={{ marginRight: 20, backgroundColor: 'transparent' }} onClick={handleClick}>Login</Button>}
+        <div className="logos">
+       <img src={miniYouth} className="logo" alt="logo" />
+       <span className='lineV'></span>
+       <img src={enabel} className="logo enabel" alt="logo" />
+       <span className='lineV'></span>
+       <img src={sfh} className="logo sfh" alt="logo" />
+       </div>
+       <div className={`search ${isDropdown ? 'dropdown-transition' : 'dropdown-hidden'}`}>
+        <CloseOutlined tlined className='menu' style={{ float: "left", marginLeft: 10,}} onClick={() => setisDropdown(!isDropdown)}/>
+       <Button type="none" className="read" style={{ marginRight: 5 }}><SearchOutlined />Search</Button>
+       {isList? <Button type="primary" className="read" shape="round" style={{ marginRight: 5 , backgroundColor: 'darkblue' }} onClick={handleClick}>Login</Button> : 
+       <Button type="none" className="login" shape="round" style={{ marginRight: 5, backgroundColor: 'transparent' }} onClick={handleClick}>Login</Button>}
        <Button type="none" className="read" ><GlobalOutlined /></Button>
-      </div>)}
+      </div>
       <MenuOutlined className='menu'onClick={() => setisDropdown(!isDropdown)}/>
       </div>
        <hr />
      <div className='intro-card'>
       <div >
-      <h1 >YEGO YACU</h1>
-      <p className='intro' style={{ textAlign: 'start'}}>This system will help Youth Centers to effectively offer high-quality youth-friendly services among young people and adolescents aged between 10 to 24 years. Key interventions include the provision of high-quality ...</p>
-      <Button type="none" className="read" style={{ marginRight: 20, color: 'darkblue' }}><ArrowRightOutlined />Read More</Button>
+      <h1 className='intro-title'>YEGO YACU</h1>
+      <p className='intro' style={{ textAlign: 'start'}}> 'This system will help Youth Centers to effectively offer high-quality youth-friendly services among young people and adolescents aged between 10 to 24 years. Key interventions include the provision of high-quality {showMore ? '...' : 'Adolescent Sexual and Reproductive Health (ASRH) services and information including Family Planning, unwanted pregnancies, safe abortion, sexuality, safe sex, STIs & pre-nuptial consultation, drug and substance abuse and on gender-based violence.'}</p>
+      <Button type="none" className="read" style={{ fontSize:16,fontWeight: 600, color: 'darkblue' }} onClick={() => setshowMore(!showMore)}><ArrowRightOutlined />Read {showMore ? ' More' : 'Less'}</Button>
       </div>
-      <img src={mainImage} className="main" alt="logo" />
+      <img src={mainImage} className="main" alt="Yego-Yacu Team" />
       </div>
       <br />
       <div className='parent'>
@@ -68,8 +105,8 @@ function App() {
       <br />
       <p>Adolescent Sexual and Reproductive Health document message for 10-14 Years old.</p>
       <br />
-      <Button type="none" className="read" style={{ color: 'darkblue' }}><ArrowRightOutlined />Read More</Button>
-      <Button type="none" className="read" style={{color: 'blue', float: 'right' }}>Download</Button>
+      <Button type="none" className="read" style={{ fontSize:14,fontWeight: 600, color: 'darkblue' }}onClick={handlePdfPreview} ><ArrowRightOutlined />Read More</Button>
+      <Button type="none" className="read" style={{ fontSize:14,fontWeight: 600, color: 'blue', float: 'right' }} onClick={() => handlePdfDownload(pdfFile)}>Download</Button>
       </div>
       </div>
       <div className='intro-2'>
@@ -77,8 +114,8 @@ function App() {
       <br />
       <p style={{color: 'white' }}>Adolescent Sexual and Reproductive Health document message for 15-24 Years old.</p>
       <br />
-      <Button type="none" className="read" style={{color: 'white' }}><ArrowRightOutlined />Read More</Button>
-      <Button type="none" className="read" style={{ color: 'blue', float: 'right' }}>Download</Button>
+      <Button type="none" className="read" style={{fontSize:14, fontWeight: 600, color: 'white' }} onClick={handlePdfPreview2}><ArrowRightOutlined />Read More</Button>
+      <Button type="none" className="read" style={{ fontSize:14,fontWeight: 600, color: 'blue', float: 'right' }} onClick={() => handlePdfDownload(pdfFile2)}>Download</Button>
       </div>
       </div>
       </div>
@@ -87,40 +124,78 @@ function App() {
       <img src={graph2} className="image2" alt="logo" />
       </div>
       <br />
+      </div>
       <div className='video'>
-        <h1 style={{textAlign: 'center' }}> Visual Educaction</h1>
-        {/* <img src={video} className="image3" alt="logo" />
-        <img src={rectangle} className="image4" alt="logo" /> */}
+        <h1 style={{textAlign: 'center' }}> Visual Education</h1>
         <footer className='footer'>
-        { <img src={video} className="image3" alt="logo" />}
+        <video className="image3" controls poster={video}>
+        <source src={require('../assets/srh-video.mp4')} type="video/mp4" />
+             Your browser does not support the video tag.
+        </video>
         <h1 style={{textAlign: 'center', color: 'white' }}> Empowering Rwandan Communities</h1>
         <div className='links'>
           <div>
             <h1 className='one'>SFH Rwanda</h1>
-            <p>Kacyiru KG 501 St P.O Box: 3040,<p> Kigali, Rwanda</p></p>
-            <p>info@sfhrwanda.org</p>
-            <p>+250 788 305 684</p>
+            <p>Kacyiru KG 501 St P.O Box: 3040,<span class="break-line"> Kigali, Rwanda</span></p>
+            <p>info@sfhrwanda.org<span class="break-line">+250 788 305 684</span></p>
+            
           </div>
-          <div>
+          <div className='two-header'>
             <h4 className='two'>About SFH</h4>
-            <p><RightOutlined />  Who We Are</p>
-            <p><RightOutlined />  Publications</p>
-            <p><RightOutlined />  SFH Reports</p>
-            <p><RightOutlined />  Press Release</p>
+            <p><RightOutlined /> &nbsp; Who We Are</p>
+            <p><RightOutlined /> &nbsp; Publications</p>
+            <p><RightOutlined />  &nbsp; SFH Reports</p>
+            <p><RightOutlined />  &nbsp; Press Release</p>
           </div>
-          <div>
+          <div className='three-header'>
           <h4 className='three'>Our Partners</h4>
-            <p><RightOutlined />  Ministry of Health</p>
-            <p><RightOutlined />  My Culture</p>
-            <p><RightOutlined />  Enabel</p>
-            <p><RightOutlined />  USAID</p>
+            <p><RightOutlined />  &nbsp; Ministry of Health</p>
+            <p><RightOutlined />  &nbsp; My Culture</p>
+            <p><RightOutlined />  &nbsp; ENABEL</p>
+            <p><RightOutlined />  &nbsp; USAID</p>
           </div>
         </div>
         <hr className='copyright'/>
-        <p style={{textAlign: 'center'}}>© 2024 All right reserved by SFH-Rwanda. Developed By Azul Tech Ltd.</p>
+        <p className='copyright-text' style={{textAlign: 'center'}}>© 2024 All right reserved by SFH-Rwanda. Developed By Azul Tech Ltd.</p>
         </footer>
       </div>
+
+      <Modal
+        isOpen={isPdfPreviewVisible}
+        onRequestClose={closeModal}
+        contentLabel="PDF Preview"
+        ariaHideApp={false} // To suppress a warning related to accessibility
+        className='modal'
+      >
+        <div>
+          <Button type='danger' shape='round' style={{backgroundColor: 'rgb(229, 88, 88)', marginBottom: '20px'}} onClick={closeModal}><CloseOutlined />Close</Button>
+          {ReadTwo ? (
+      <Document file={pdfFile} onLoadSuccess={onDocumentLoadSuccess}>
+        {Array.apply(null, Array(numPages)).map((x, i) => i + 1).map((page) => (
+          <Page
+            key={page}
+            pageNumber={page}
+            renderTextLayer={false}
+            renderAnnotationLayer={false}
+          />
+        ))}
+      </Document>
+    ) : (
+      <Document file={pdfFile2} onLoadSuccess={onDocumentLoadSuccess}>
+        {Array.apply(null, Array(numPages)).map((x, i) => i + 1).map((page) => (
+          <Page
+            key={page}
+            pageNumber={page}
+            renderTextLayer={false}
+            renderAnnotationLayer={false}
+          />
+        ))}
+      </Document>
+    )}
+        </div>
+      </Modal>
     </div>
+    
   );
 }
 

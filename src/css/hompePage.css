@@ -3,29 +3,83 @@ html, body {
   padding: 0;
   width: 100%;
   height: 100%;
+  font-family: 'Poppins', sans-serif;
+}
+.app {
+  width: 100%
+}
+.upper{
+  margin: 24px 122px 0px 122px;
+}
+.title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.logos{
+  margin-left: 8px;
+  display: flex;
+  align-items: flex-start;
+}
+.logo {
+  /* margin-right: 5px; */
+}
+.enabel {
+  margin-top: 5px
+}
+.sfh {
+  margin-top: 10px;
+}
+
+.lineV {
+  content: '';
+  display: inline-block;
+  width: 1.5px; /* Adjust the width of the vertical line */
+  height: 30px; /* Adjust the height of the vertical line */
+  margin: 20px 6px 0px 6px; /* Adjust the spacing between the line and the next logo */
+  background-color: rgba(217, 217, 217, 1); /* Adjust the color of the vertical line */
 }
   .menu{
     display: none;
-    float: right;
+    float: right; 
   }
   .search {
-   margin-top: 15px;
+   margin-right: 25px;
    float: right;
+   transform: scale(1.3);
   }
   .intro-card {
     display: flex;
     flex-direction: row ;
     align-items: center;
-    margin: 80px;
-    padding: 70px; 
+    position: relative;
+    top: 64px;
+    justify-content: space-between;
+    margin: 0px 65px 0px 14px
+  }
+  .intro-title {
+    font-size: 38.52px;
+    font-weight: bold;
   }
   .intro {
-  
+    padding-right: 25px;
+    color: rgba(118, 116, 116, 1);
+    font-size: 16;
+    margin-top: -20px
+  }
+  .main{
+    width: 590px;
+    border-radius:  0px 69px 0px 0px;
+  }
+  .parent{
+    margin-top: 120px;
   }
   .vector{
     position: absolute;
     z-index: -1;
-    margin-left: -110px;
+    margin-left: -156px;
+    transform: scale(0.95);
   }
   .materials{
     margin: 0 180px;
@@ -33,7 +87,7 @@ html, body {
     flex-direction: row;
   }
   .education {
-    margin: 120px 30px 0 120px;
+    margin: 150px 30px 0 0px;
   }
   .intro-1 {
    width: auto;
@@ -49,44 +103,35 @@ html, body {
     border-radius: 27px;
    }
    .graph{
-    margin: 300px 100px 0px 100px;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    margin-top: 225px;
+    gap: 40px
    }
   .image1 {
-    border: 1px solid rgba(83, 68, 68, 0.13);
-    border-radius: 20px;
-    padding: 50px 0px 50px 0px
   }
   .image2 {
-    transform: scale(0.6);
-    margin-left: -50px;
   }
   .video{
     text-align: center;
   }
   .image3 {
-    transform: scale(0.6);
-    margin-top: -100px;
-  }
-  .image4 {
-    position: relative;
-    margin-top: -150px;
-    z-index: -1;
-    margin: -500px 0 0 -200px;
-    transform: scale(1.2);
+    width: 950px
   }
   .footer{
-    margin: -450px 0 0 0px;
     text-align: center;
-    font: bolder;
   }
   .links{
     display: flex;
     flex-direction: row;
     text-align: start;
     margin-left: 100px;
-    font-weight:600;
+    font-weight:550;
+  }
+  .break-line {
+    display: block;
+    margin-top: 0.2em;
   }
   .one {
     margin-right: 400px;
@@ -94,33 +139,60 @@ html, body {
   .two {
     margin-right: 300px;
   }
-  hr.copyright {
-    border: 2px solid #000;
+  .two-header > *:not(:last-child) {
+    margin-bottom: -5px; 
   }
-  
+  .three-header > *:not(:last-child) {
+    margin-bottom: -5px; 
+  }
+  hr.copyright {
+    border: 0.01px solid black;
+    margin: 10px 129px 0px 80px;
+  }
+.copyright-text {
+   padding: 0px 10px 10px 10px;
+  }
   button.read {
-    transition: transform 0.3s ease; /* Add smooth transition when not hovering */
+    transition: transform 0.3s ease; 
   }
   
   button.read:hover {
-    transform: translateY(-5px); /* Move the button up on hover */
-  }
-  button.login:hover {
-   background-color:blue
+    transform: translateY(-5px);
+    
   }
   footer {
-    background: linear-gradient(to right, #fff, #a4d2ff, #007bff);
-    padding: 20px;
-    color: white;
+    background: linear-gradient(to bottom, rgba(89, 91, 168, 0), rgba(89, 91, 168, 0.5), rgba(78, 115, 184, 1));
     text-align: center;
+    padding-bottom: 5px ;
   }
+  .modal{
+    text-align:-webkit-center;
+    max-height: 100vh; /* Adjust the maximum height as needed */
+    overflow: auto;
+    color: rgb(229, 88, 88)
+    /* background: transparent; */
+  }
+  .react-pdf__Page{
+    background-color: transparent !important;
+  }
+  
   @media (max-width: 950px) {
+    /* .container{
+      margin: 50px ;
+    } */
+    .upper{
+      margin: 30px;
+    }
+    .logos{
+      transform: scale(0.95);
+      margin-left: -30px ;
+    }
     .button {
       font-size: larger;
     }
     .menu{
       display: block;
-      margin: 20px 0px 0px 20px;
+      /* margin: 20px 0px 0px 20px; */
       float: right;
       font-size: 20px;
     }
@@ -129,25 +201,45 @@ html, body {
     }
     .search{
         display: block;
-          position: absolute;
-          background-color:#61dafb;
-          height: 20vh;
+          position: fixed;
+          background-color:rgba(114, 195, 201, 1);
+          height:auto;
           width: 100px;
           cursor: pointer;
-          top: 10;
+          top: 0px;
           right:0;
-          margin-top: 0;
+          padding-top: 30px;
+          padding-bottom: 30px;
           text-align: left;
           z-index: 2;
           font-size: larger;
+          transition: left 0.3s ease;
+          margin: 0;
+    }
+    .dropdown-transition {
+      transition: transform 0.5s ease-in-out;
+      transform: translateX(0); /* Initially set to visible */
+    }
+    
+    .dropdown-hidden {
+      transform: translateX(100%);
+      pointer-events: none; /* Disable interaction when hidden */
+    }
+    .read search{
+      margin-left: -100px;
     }
     .intro-card{
       padding: 0px;
       margin: 0;
       width: 100%;
       z-index: 1;
+      margin-top: -25px;
     }
     .intro{
+      text-align: center;
+      padding: 0px;
+    }
+    .intro-title {
       text-align: center;
     }
     .main {
@@ -155,8 +247,8 @@ html, body {
     }
     .vector{
       transform: rotate(90deg);
-      left: -650px;
-      top: 650px;
+      left: -541px;
+      top: 954px;
     }
     .parent{
       align-items: center;
@@ -165,6 +257,8 @@ html, body {
       margin: 0px;
       display: flex;
       flex-direction: column;
+      margin-top: -45px;
+      /* gap: 70px; */
     }
     .materials > *:not(:last-child) {
       margin-bottom: 10px; 
@@ -188,11 +282,12 @@ html, body {
       margin: 0px;
       display: flex;
       flex-direction: column;
+      gap: 40px;
      }
     .image1 {
       border: 1px solid rgba(83, 68, 68, 0.13);
       border-radius: 20px;
-      margin-top: 20px;
+      margin-top: 40px;
       padding: 0px
     }
     .image2 {
@@ -203,35 +298,22 @@ html, body {
       text-align: center;
     }
     .image3 {
-      transform: scale(0.25);
-      margin-top: 0px;
-      position: absolute;
-      left: -510px;
-      top: 1200px;
+      /* margin: 0px 40px 0px 0px; */
+      width: 35vh
+
     }
-    .image4 {
-      transform: scale(1);
-      z-index: -1;
-      margin-top: -50px;
-      margin-left: -1035px;
-      position: relative;
-    }
-    .footer{
-      margin: -480px 0 0 0px;
-      text-align: center;
-      font: bolder;
-    }
+    /* footer{
+      width: 135%;
+      margin: 0 -50px 0 -50px;
+      padding: 0px 15px 0px 15px;
+    } */
     .links{
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       text-align: start;
-      margin-left: 25px;
+      margin-left: 50px;
       font-weight:600;
-      z-index: 1000;
       font-size: x-small;
-    }
-    hr.copyright {
-      border: 2px solid #000;
     }
     .one{
       margin-right: 150px;
@@ -239,13 +321,24 @@ html, body {
     .two{
       margin: 0
     }
+    hr.copyright {
+      margin: 10px 25px 0px 20px;
+    }
   
   }
-  @media (max-width: 850px) {
+  @media (max-width: 800px) {
     .button {
       font-size: larger;
     }
-    .image3 {
+    /* .container{
+      margin: 30px 30px 30px 45px;
+    }
+    .logos{
+      transform: scale(0.95);
+      margin-left: -35px;
+    } */
+  }
+      /* .image3 {
       transform: scale(0.23);
       margin-top: 0px;
       position: absolute;
@@ -268,10 +361,7 @@ html, body {
       display: flex;
       font-size: smaller
     }
-    .logos{
-      transform: scale(0.8);
-      margin-left: -40px;
-    }
+    
     .menu{
       display: block;
       margin: 20px 0px 0px 0px;
@@ -285,5 +375,5 @@ html, body {
     }
   }
   
-  
+   */
   

@@ -1,6 +1,6 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
-import Home from './components/homePage copy';
+import Home from './components/homePage';
 
 const Layout = () => (
   <>

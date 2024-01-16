@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 // import logos from '../Frame 22605.svg'
-import graph from '../assets/Group 2.png'
-import graph2 from '../assets/Group 1.png'
+import graph from '../assets/Group 2.svg'
+import graph2 from '../assets/Group 1.svg'
 import mainImage from '../assets/Yego-Yacu team pic.jpeg'
 import video from '../assets/image.png'
 import line from '../Vector 91.svg'
 import pdfFile from '../assets/ASRHR10-14.pdf'
 import pdfFile2 from '../assets/ASRHR15-24.pdf'
-import miniYouth from '../assets/miniyouth2 1.png'
-import enabel from '../assets/enabel 1.png'
-import sfh from '../assets/sfhlogo1 1.png'
+import miniYouth from '../assets/miniyouth2 1.svg'
+import enabel from '../assets/enabel 1.svg'
+import sfh from '../assets/sfhlogo1 1.svg'
 import '../css/hompePage.css';
 import { Button } from 'antd';
-import { SearchOutlined, GlobalOutlined, ArrowRightOutlined, RightOutlined, MenuOutlined, CloseOutlined } from '@ant-design/icons';
+import { SearchOutlined, GlobalOutlined, ArrowRightOutlined, RightOutlined, MenuOutlined, CloseOutlined, LoginOutlined } from '@ant-design/icons';
 import '@react-pdf-viewer/core/lib/styles/index.css';
 import Modal from 'react-modal';
 import { pdfjs, Document, Page } from 'react-pdf';
@@ -27,6 +27,7 @@ function App() {
   const [ReadTwo, setReadTwo] = useState(false);
   const [isPdfPreviewVisible, setIsPdfPreviewVisible] = useState(false);
   const [isList, setisList] = useState(false);
+  const [isTranslate, setisTranslate] = useState(false);
   const [numPages, setNumPages] = useState();
   const navigate = useNavigate();
 
@@ -77,11 +78,31 @@ function App() {
        <img src={sfh} className="logo sfh" alt="logo" />
        </div>
        <div className={`search ${isDropdown ? 'dropdown-transition' : 'dropdown-hidden'}`}>
-        <CloseOutlined tlined className='menu' style={{ float: "left", marginLeft: 10,}} onClick={() => setisDropdown(!isDropdown)}/>
+        <CloseOutlined className='menu' style={{ float: "left", marginLeft: 10,}} onClick={() => setisDropdown(!isDropdown)}/>
        <Button type="none" className="read" style={{ marginRight: 5 }}><SearchOutlined />Search</Button>
        {isList? <Button type="primary" className="read" shape="round" style={{ marginRight: 5 , backgroundColor: 'darkblue' }} onClick={handleClick}>Login</Button> : 
-       <Button type="none" className="login" shape="round" style={{ marginRight: 5, backgroundColor: 'transparent' }} onClick={handleClick}>Login</Button>}
-       <Button type="none" className="read" ><GlobalOutlined /></Button>
+       <Button type="none" className="login" shape="round" style={{ marginRight: 5, backgroundColor: 'transparent' }} onClick={handleClick}><LoginOutlined />Login</Button>}
+       <Button type="none" className="read global" onClick={() => setisTranslate(!isTranslate)}><GlobalOutlined /></Button> 
+       {isList ?
+  (isTranslate &&
+    <div className='translate'>
+      <Button type="none" className="read language">EN</Button>
+      <span className='lineV s'></span>
+      <Button type="none" className="read language">FR</Button>
+      <span className='lineV s'></span>
+      <Button type="none" className="read language">RW</Button>
+    </div>
+  ) :
+  (
+    <div className='translate small'>
+      <Button type="none" className="read language2">EN</Button>
+      {isTranslate &&<div style={{display:'Flex', flexDirection: "column"}}>
+      <Button type="none" className="read language2">FR</Button>
+      <Button type="none" className="read language2">RW</Button></div>}
+    </div>
+  )
+}
+
       </div>
       <MenuOutlined className='menu'onClick={() => setisDropdown(!isDropdown)}/>
       </div>
@@ -89,7 +110,7 @@ function App() {
      <div className='intro-card'>
       <div >
       <h1 className='intro-title'>YEGO YACU</h1>
-      <p className='intro' style={{ textAlign: 'start'}}> 'This system will help Youth Centers to effectively offer high-quality youth-friendly services among young people and adolescents aged between 10 to 24 years. Key interventions include the provision of high-quality {showMore ? '...' : 'Adolescent Sexual and Reproductive Health (ASRH) services and information including Family Planning, unwanted pregnancies, safe abortion, sexuality, safe sex, STIs & pre-nuptial consultation, drug and substance abuse and on gender-based violence.'}</p>
+      <p className='intro' style={{ textAlign: 'start'}}> This system will help Youth Centers to effectively offer high-quality youth-friendly services among young people and adolescents aged between 10 to 24 years. Key interventions include the provision of high-quality {showMore ? '...' : 'Adolescent Sexual and Reproductive Health (ASRH) services and information including Family Planning, unwanted pregnancies, safe abortion, sexuality, safe sex, STIs & pre-nuptial consultation, drug and substance abuse and on gender-based violence.'}</p>
       <Button type="none" className="read" style={{ fontSize:16,fontWeight: 600, color: 'darkblue' }} onClick={() => setshowMore(!showMore)}><ArrowRightOutlined />Read {showMore ? ' More' : 'Less'}</Button>
       </div>
       <img src={mainImage} className="main" alt="Yego-Yacu Team" />
@@ -100,7 +121,7 @@ function App() {
       <div className='materials'>
       <h1 className='education'>Education Materials</h1>
       <div className='intro-1'>
-      <div lassName='intro-11'>
+      <div className='intro-11'>
       <h3>ASRH for 10-14 Years Old</h3>
       <br />
       <p>Adolescent Sexual and Reproductive Health document message for 10-14 Years old.</p>
@@ -136,9 +157,8 @@ function App() {
         <div className='links'>
           <div>
             <h1 className='one'>SFH Rwanda</h1>
-            <p>Kacyiru KG 501 St P.O Box: 3040,<span class="break-line"> Kigali, Rwanda</span></p>
-            <p>info@sfhrwanda.org<span class="break-line">+250 788 305 684</span></p>
-            
+            <p>Kacyiru KG 501 St P.O Box: 3040,<span className="break-line"> Kigali, Rwanda</span></p>
+            <p>info@sfhrwanda.org<span className="break-line">+250 788 305 684</span></p>
           </div>
           <div className='two-header'>
             <h4 className='two'>About SFH</h4>
